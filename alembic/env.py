@@ -9,7 +9,7 @@ from sqlalchemy import pool
 from alembic import context
 
 from db.db import Base
-from db.models import Group, Student, Teacher, Subject, Grade
+# from db.models import Group, Student, Teacher, Subject, Grade
 
 load_dotenv()
 
