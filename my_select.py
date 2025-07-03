@@ -21,12 +21,18 @@ def select_2(subject_id: int):
 
 # 3. Середній бал у групах з певного предмета.
 def select_3(subject_id: int):
-    return session.query(
-        Group.name,
-        func.round(func.avg(Grade.grade), 2).label('avg_grade')
-    ).join(Student).join(Grade).filter(
-        Grade.subject_id == subject_id
-    ).group_by(Group.id).all()
+    return (
+        session.query(
+            Group.name,
+            func.round(func.avg(Grade.grade), 2).label('avg_grade')
+        )
+        .select_from(Group)
+        .join(Student, Student.group_id == Group.id)
+        .join(Grade, Grade.student_id == Student.id)
+        .filter(Grade.subject_id == subject_id)
+        .group_by(Group.id)
+        .all()
+    )
 
 # 4. Середній бал на потоці (по всій таблиці оцінок)
 def select_4():

@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, UniqueConstraint
 from sqlalchemy.orm import relationship
-from db import Base
+from db.db import Base
 
 
 class Group(Base):
