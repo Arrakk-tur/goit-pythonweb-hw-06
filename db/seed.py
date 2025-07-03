@@ -1,6 +1,6 @@
 import random
 from faker import Faker
-from db.db import Session
+from db.db import Session, Base, engine
 from db.models import Group, Student, Teacher, Subject, Grade
 
 
@@ -12,10 +12,13 @@ def adding_data_to_tables(data):
     session.flush()
 
 # Clearing
-models_list = [Grade, Subject, Teacher, Student, Group]
+# models_list = [Grade, Subject, Teacher, Student, Group]
+#
+# for model in models_list:
+#     session.query(model).delete()
+Base.metadata.drop_all(bind=engine)
+Base.metadata.create_all(bind=engine)
 
-for model in models_list:
-    session.query(model).delete()
 
 # Groups
 groups = []
